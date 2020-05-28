@@ -2,8 +2,8 @@ import PNotify from 'pnotify/dist/es/PNotify.js';
 import 'pnotify/dist/PNotifyBrightTheme.css';
 import debounce from 'lodash.debounce';
 import fetchCountriesApi from './services/fetchCountries.js';
-import countriesList from '../templates/countiesListTemplates.hbs';
-import countiesListTemplates from '../templates/countriesListItem.hbs';
+import countiesListTemplates from '../templates/countiesListTemplates.hbs';
+import countriesList from '../templates/countriesListItem.hbs';
 
 const refs = {
   searchInput: document.querySelector('#input'),
@@ -27,23 +27,28 @@ function handlerSearchInput(event) {
     .fetchCountries(event.target.value)
     .then(res => {
       if (res.length === 1) {
-        refs.countryList.innerHTML = `${countiesListTemplates(res)}`;
+        refs.countryList.innerHTML = `${countriesList(res)}`;
         PNotify.success({
           title: 'Your country!',
           type: 'success',
           text: 'This is your country?',
           delay: 2000,
         });
+        clouseNotificationWindow();
+        return;
       }
       if (res.length >= 2 && res.length <= 10) {
-        refs.countryList.innerHTML = `${countriesList(res)}`;
+        refs.countryList.innerHTML = `${countiesListTemplates(res)}`;
       }
+
       if (data.length > 10) {
         PNotify.error({
           text: 'Too many matches found. Please enter a more specific query!',
           type: 'error',
           delay: 2000,
         });
+        clouseNotificationWindow();
+        return;
       }
     })
     .catch(error => console.warn(error));
@@ -55,8 +60,7 @@ function handlerSearchInput(event) {
       if (event.target) {
         notifyClassSelect.remove();
       }
-
-      notifyClassSelect.addEventListener('click', clousePnotify);
     }
+    notifyClassSelect.addEventListener('click', clousePnotify);
   }
 }

@@ -31,6 +31,7 @@ ul {
 
 .search-form {
   display: grid;
+  margin-bottom: 20px;
 }
 
 .input-text {
@@ -48,11 +49,16 @@ ul {
 
 .country {
   display: grid;
+  padding-bottom: 10px;
 }
 
 .country-container {
-  padding-left: 15%;
+  padding-left: 30%;
   padding-bottom: 5%;
+}
+
+.country__name {
+  padding-left: 20%;
 }
 
 img {
