@@ -12,11 +12,7 @@ const refs = {
 
 refs.searchInput.addEventListener('input', debounce(handlerSearchInput, 500));
 
-// refs.countiesList.addEventListener('click', loadMoreBtnHandler);
-
 function handlerSearchInput(event) {
-  console.dir(event.target);
-
   if (event.target.value === ' ' || event.target.value === '') {
     PNotify.notice({
       text: 'Enter a country name?',
@@ -39,11 +35,9 @@ function handlerSearchInput(event) {
           delay: 2000,
         });
       }
-
       if (res.length >= 2 && res.length <= 10) {
         refs.countryList.innerHTML = `${countriesList(res)}`;
       }
-
       if (data.length > 10) {
         PNotify.error({
           text: 'Too many matches found. Please enter a more specific query!',
