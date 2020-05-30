@@ -13,6 +13,7 @@ const refs = {
 refs.searchInput.addEventListener('input', debounce(handlerSearchInput, 500));
 
 function handlerSearchInput(event) {
+  event.preventDefault();
   clearMarkup();
   if (event.target.value === ' ' || event.target.value === '') {
     PNotify.notice({
