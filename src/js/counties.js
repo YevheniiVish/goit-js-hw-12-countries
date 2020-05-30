@@ -60,7 +60,7 @@ function clouseNotificationWindow() {
   const notifyClassSelect = document.querySelector('.ui-pnotify');
 
   function clousePnotify(event) {
-    if (event.target) {
+    if (event.currentTarget) {
       notifyClassSelect.remove();
     }
   }
