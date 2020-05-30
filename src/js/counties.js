@@ -13,6 +13,7 @@ const refs = {
 refs.searchInput.addEventListener('input', debounce(handlerSearchInput, 500));
 
 function handlerSearchInput(event) {
+  clearMarkup();
   if (event.target.value === ' ' || event.target.value === '') {
     PNotify.notice({
       text: 'Enter a country name?',
@@ -41,7 +42,7 @@ function handlerSearchInput(event) {
         refs.countryList.innerHTML = `${countiesListTemplates(res)}`;
       }
 
-      if (data.length > 10) {
+      if (res.length > 10) {
         PNotify.error({
           text: 'Too many matches found. Please enter a more specific query!',
           type: 'error',
@@ -52,15 +53,19 @@ function handlerSearchInput(event) {
       }
     })
     .catch(error => console.warn(error));
+}
 
-  function clouseNotificationWindow() {
-    const notifyClassSelect = document.querySelector('.ui-pnotify');
+function clouseNotificationWindow() {
+  const notifyClassSelect = document.querySelector('.ui-pnotify');
 
-    function clousePnotify(event) {
-      if (event.target) {
-        notifyClassSelect.remove();
-      }
+  function clousePnotify(event) {
+    if (event.target) {
+      notifyClassSelect.remove();
     }
-    notifyClassSelect.addEventListener('click', clousePnotify);
   }
+  notifyClassSelect.addEventListener('click', clousePnotify);
+}
+
+function clearMarkup() {
+  refs.countryList.innerHTML = ' ';
 }
